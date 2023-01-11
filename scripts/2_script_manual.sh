@@ -42,11 +42,11 @@ echo "#################"
 echo " "
 
 echo "Creating swap file"
-dd if=/dev/zero of=/overlay/swap.page bs=1M count=512;
+dd if=/dev/zero of=/overlay/swap.page bs=1M count=1024;
 echo "Enabling swap file"
 mkswap /overlay/swap.page;
 swapon /overlay/swap.page;
-mount -o remount,size=256M /tmp;
+mount -o remount,size=512M /tmp;
 
 echo "Updating rc.local for swap"
 rm /etc/rc.local;
@@ -58,7 +58,7 @@ cat << "EOF" > /etc/rc.local
 swapon /overlay/swap.page  
 
 ###expand /tmp space  
-mount -o remount,size=256M /tmp
+mount -o remount,size=512M /tmp
 
 exit 0
 EOF
